@@ -2,9 +2,9 @@ var proxy = require('http-proxy-middleware')
 
 module.exports = {
   siteMetadata: {
-    title: 'Mopio',
+    title: 'Beautiful and Quality Furniture, Sofa, Sofa Bed, Ottoman | Mopio',
     description:
-      'Mopio, we create beautiful and quality furniture that doesn’t cost you a forture.',
+      'We create beautiful and quality furniture that doesn’t cost you a forture - Mopio.',
   },
   plugins: [
     {
