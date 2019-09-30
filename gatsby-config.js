@@ -2,11 +2,21 @@ var proxy = require('http-proxy-middleware')
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby + Netlify CMS Starter',
+    title: 'Mopio',
     description:
-      'This repo contains an example business website that is built with Gatsby, and Netlify CMS.It follows the JAMstack architecture by using Git as a single source of truth, and Netlify for continuous deployment, and CDN distribution.',
+      'Mopio, we create beautiful and quality furniture that doesn’t cost you a forture.',
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `DM Serif Display`,
+          },
+        ],
+      },
+    },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass',
     {
@@ -70,7 +80,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-purgecss', // purges all unused/unreferenced css rules
       options: {
-        develop: true, // Activates purging in npm run develop
+        develop: false, // Activates purging in npm run develop
         purgeOnly: ['/all.sass'], // applies purging only on the bulma css file
       },
     }, // must be after other CSS plugins

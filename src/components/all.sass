@@ -1,17 +1,27 @@
 @import "~bulma/sass/utilities/initial-variables"
 
 // Config vars
-// Kaldi logo brand color: #FD461E
-$kaldi-red: #D64000
-$kaldi-red-invert: #fff
+// Mopio logo brand color: ##d23b3f
+// https://bulma.io/documentation/customize/variables/
+$color-red: #d23b3f
+$mopio-red-invert: #fff
+$color-black: #000
 
-$primary: $kaldi-red
-$primary-invert: $kaldi-red-invert
-$body-color: #333
-$black: #2b2523
-
-.navbar .navbar-menu
-  box-shadow:none !important
+$primary: $color-red
+$primary-invert: $mopio-red-invert
+$body-color: $color-black
+$black: $color-black
+$link: $color-red
+$navbar-breakpoint: $tablet
+$input-radius: 0
+$input-shadow: 0 2px 1px 0 rgba(0, 0, 0, 0.03)
+$input-border-color: #e0e1e1
+$input-focus-border-color: hsl(217, 71%, 53%)
+$input-focus-box-shadow-size: 0
+$control-padding-vertical: 30px
+$control-padding-horizontal: 20px
+$file-radius: $input-radius
+$file-border-color: $input-border-color
 
 .content .taglist
   list-style: none
@@ -71,70 +81,299 @@ $black: #2b2523
 .margin-top-0
   margin-top: 0 !important
 
-.navbar-item .icon
-  color: $primary
-// Override for use of svg's from https://simpleicons.org/
-.icon svg
-  width: 1.5rem
-  height: 1.5rem
-  fill: currentColor
-.navbar-brand .navbar-item.logo
-  padding: 0 1rem
-footer.footer
-  padding: 3rem 0rem 0rem
-  background-color: transparent
 
 //Menu overrides
-$menu-item-color: $white-ter
-$menu-item-hover-color: $black !important
-$menu-item-hover-background-color: $black
-$menu-item-active-color: $kaldi-red-invert
-$menu-item-active-background-color:	$kaldi-red-invert
-$menu-list-border-left: 1px solid $kaldi-red-invert
-$menu-label-color: $white-ter
-
-
-.menu-label
-  font-size: 1em !important
-  text-align: left
-.menu-list
-  list-style: none !important
-  text-align: left
-.social
-  padding: 2em
-.social a
-    padding: .5em .5em .3em .5em
-    border-radius: 1em
-    background-color: $white-ter
-    margin: .5em
-    width: 1em
-    height: 1em
-    vertical-align: middle
-    display: inline
-
-// blog roll
-.blog-list-item.is-featured
-  background-color: #d6400033;
-.blog-list-item header
-  display: flex;
-  margin-bottom: 1em;
-.blog-list-item .featured-thumbnail
-  flex-basis: 35%;
-  margin: 0 1.5em 0 0;
-
+// $menu-item-color: $white-ter
+// $menu-item-hover-color: $black !important
+// $menu-item-hover-background-color: $black
+// $menu-item-active-color: $kaldi-red-invert
+// $menu-item-active-background-color:	$kaldi-red-invert
+// $menu-list-border-left: 1px solid $kaldi-red-invert
+// $menu-label-color: $white-ter
 
 @import "~bulma"
-
+@import "~bulma-calendar"
 
 // responsiveness
 +tablet-only
   .blog-list-item .featured-thumbnail
-    flex-basis: 50%;
+    flex-basis: 50%
 
 +mobile
   .blog-list-item header
     display: block
   .blog-list-item .featured-thumbnail
-    text-align: center;
-    max-width: 70%;
-    margin: 0 0 1em;
+    text-align: center
+    max-width: 70%
+    margin: 0 0 1em
+
+// custom
+@import "font"
+$font-base: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif
+$font-header: 'DM Serif Display', 'Helvetica Neue', Arial, sans-serif
+$mobile-navbar-height: 5.25rem
+$tablet-navbar-height: 192px
+$big-footer-height: 65px
+$footer-height: 45px
+$bg-color: #F4F5F5
+
+html, body
+  font-family: $font-base
+  background-color: $bg-color
+h1, h2, h3, h4, h5, h6
+  font-family: $font-header
+
+.navbar
+  background-color: $bg-color
+  +tablet
+    & > .container
+      align-items: center
+    &.transparent
+      position: absolute
+      left: 0
+      right: 0
+      top: 0
+      background: none
+      .navbar-menu
+        border-bottom: none
+        .navbar-item
+          &.is-active:after
+            display: none
+          &:hover:after
+            display: none
+    .navbar-menu
+      margin-left: 140px
+      border-bottom: 1px solid #d3d3d3
+      .navbar-item
+        padding: 30px 35px
+        &:last-child
+          padding-right: 0
+        &:last-child:after
+          width: 60%
+          margin-left: 20px
+        &:after
+          bottom: 0;
+          left: 50%;
+          transform: translate(-50%, 50%);
+          border: 1px solid #d23b3f;
+          content: "";
+          height: 0;
+          width: 50%;
+          position: absolute;
+          pointer-events: none;
+          display: none;
+        &:hover:after
+          display: block
+        &.is-active:after
+          display: block
+
+.navbar-brand
+  align-items: center
+  +tablet
+    width: 289px
+    height: $tablet-navbar-height
+    background: #fff
+    display: flex
+    justify-content: center
+  +mobile
+    height: $mobile-navbar-height
+
+.navbar-menu.is-active
+  padding: 0
+
+
+.navbar-item
+  font-size: 1.125rem
+  font-weight: 600
+  +mobile
+    color: $color-black
+    padding: 20px
+  +desktop
+    color: $color-black
+
+
+.navbar-item img
+  +tablet
+    max-height: 3.125rem
+  +mobile
+    max-height: 2.25rem
+
+.index-page
+  +tablet
+    height: 100vh
+  +mobile
+    height: calc(100vh - #{$mobile-navbar-height})
+
+  .column
+    padding: 0
+  +mobile
+    align-items: start
+
+.index-container
+  +mobile
+    margin-top: 80px
+
+.shopping-btn, .contact-btn
+  margin-bottom: 140px
+  font-weight: 600
+  +mobile
+    font-size: 1rem
+    width: 180px
+    border-radius: 20px
+    margin-top: 30px
+  +tablet
+    width: 230px
+    border-radius: 25px
+    margin-top: 48px
+    font-size: 1.125rem
+
+.index-content
+  +mobile
+    margin: 0 auto
+    color: $color-black
+  +tablet
+    color: white
+
+.mopio-footer
+  display: flex
+  justify-content: flex-end
+  color: $color-black
+  border-top: 1px solid #d3d3d3
+  padding: 10px 0
+  +mobile
+    margin: 0 20px
+  +desktop
+    margin: 0 auto
+
+  @media screen and (min-width: 1720px)
+    padding: 20px 0
+
+
+.mopio-footer.transparent
+  position: absolute
+  bottom: 0
+  left: 0
+  right: 0
+  color: white
+  border-top-color: rgba(255, 255, 255, 0.5)
+
+.contact, .not-found, .warranty
+  +desktop
+    max-width: 818px
+    margin: 0 auto
+  &-title
+    font-weight: normal
+    +tablet
+      font-size: 2.25rem
+      margin-bottom: 50px
+    +mobile
+      font-size: 1.625rem
+      margin-bottom: 20px
+  &-desc
+    font-s
+    +tablet
+      width: 440px
+      margin: 0 auto 60px
+    +mobile
+      padding: 0 22px
+      margin-bottom: 50px
+  // +tablet
+  //   height: calc(100vh - #{$tablet-navbar-height} - #{$footer-height})
+  // @media screen and (min-width: 1720px)
+  //   height: calc(100vh - #{$tablet-navbar-height} - #{$big-footer-height})
+
+
+.field:not(:last-child)
+  +tablet
+    margin-bottom: 30px
+  +mobile
+    margin-bottom: 20px
+.field-body
+  & > .field
+    +tablet
+      margin-bottom: 0
+
+.textarea
+  padding: 20px 20px
+.select
+  height: auto !important
+  width: 100%
+  box-shadow: $input-shadow
+.select select
+  width: 100%
+  padding: 20px 20px
+  height: auto
+  color: $color-black
+  &:not(:focus):invalid
+    color: $input-placeholder-color
+.input, .textarea, .select select
+  font-size: 0.875rem
+.datetimepicker-dummy
+  height: 63px !important
+.datetimepicker-dummy .datetimepicker-dummy-wrapper
+  border: 1px solid $input-border-color
+  box-shadow: $input-shadow
+  padding: 20px 40px
+  background-color: #fff
+  &:hover
+    border-color: #b5b5b5
+
+.datetimepicker-dummy.is-primary::before
+  background-color: darken($input-border-color, 20%)
+.datetimepicker-dummy.is-primary .datetimepicker-clear-button
+  color: darken($input-border-color, 20%)
+.datetimepicker-dummy:before
+  left: 20px
+  top: 21.5px
+.datetimepicker-dummy .datetimepicker-clear-button
+  right: 5px
+  top: 11px
+.datetimepicker-dummy .datetimepicker-dummy-wrapper .datetimepicker-dummy-input:first-child
+  color: $color-black
+  &::placeholder
+    color: $input-placeholder-color
+  text-indent: 1rem
+  font-size: 0.875rem
+  word-spacing: normal
+  max-width: 100%
+
+.file-cta, .file-name-custom
+  border-color: $input-border-color
+  background-color: #fff
+  color: $input-placeholder-color
+  padding: 30px 20px
+
+.file-cta
+  flex: 4
+
+.file-name-custom
+  flex: 1
+  cursor: pointer
+  display: flex
+  align-items: center
+  padding: 0 20px
+  border-width: $file-name-border-width
+  border-style: $file-name-border-style
+
+.file > .file-label
+  display: flex
+  width: 100%
+  font-size: 0.875rem
+  box-shadow: $input-shadow
+  color: $input-placeholder-color
+
+.file.uploaded
+  .file-label
+    color: $color-black
+  .file-name-custom
+    color: $color-black
+
+.modal-card-title
+  text-align: center
+  line-height: 1.3
+.modal-trigger
+  color: grey
+  text-decoration: underline
+  cursor: pointer
+  &:hover
+    color: darken(grey, 10%)

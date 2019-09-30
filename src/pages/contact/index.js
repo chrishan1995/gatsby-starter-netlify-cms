@@ -36,10 +36,11 @@ export default class Index extends React.Component {
   render() {
     return (
       <Layout>
-        <section className="section">
+        <section className="section contact">
           <div className="container">
-            <div className="content">
-              <h1>Contact</h1>
+            <div className="has-text-centered">
+              <h1 className="contact-title">Contact Us</h1>
+              <div className="contact-desc">Questions? Comments? Let us get in touch with you by filling out the email form below. </div>
               <form
                 name="contact"
                 method="post"
@@ -56,25 +57,37 @@ export default class Index extends React.Component {
                     <input name="bot-field" onChange={this.handleChange} />
                   </label>
                 </div>
-                <div className="field">
-                  <label className="label" htmlFor={'name'}>
-                    Your name
-                  </label>
-                  <div className="control">
-                    <input
-                      className="input"
-                      type={'text'}
-                      name={'name'}
-                      onChange={this.handleChange}
-                      id={'name'}
-                      required={true}
-                    />
+                <div className="field is-horizontal-tablet">
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input"
+                          type={'text'}
+                          name={'firstName'}
+                          onChange={this.handleChange}
+                          id={'firstName'}
+                          required={true}
+                          placeholder="First Name"
+                        />
+                      </div>
+                    </div>
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          className="input"
+                          type={'text'}
+                          name={'lastName'}
+                          onChange={this.handleChange}
+                          id={'lastName'}
+                          required={true}
+                          placeholder="Last Name"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label" htmlFor={'email'}>
-                    Email
-                  </label>
                   <div className="control">
                     <input
                       className="input"
@@ -83,13 +96,11 @@ export default class Index extends React.Component {
                       onChange={this.handleChange}
                       id={'email'}
                       required={true}
+                      placeholder="Email Address"
                     />
                   </div>
                 </div>
                 <div className="field">
-                  <label className="label" htmlFor={'message'}>
-                    Message
-                  </label>
                   <div className="control">
                     <textarea
                       className="textarea"
@@ -97,12 +108,13 @@ export default class Index extends React.Component {
                       onChange={this.handleChange}
                       id={'message'}
                       required={true}
+                      placeholder="Type Your Message Here"
                     />
                   </div>
                 </div>
                 <div className="field">
-                  <button className="button is-link" type="submit">
-                    Send
+                  <button className="button is-black is-rounded contact-btn" type="submit">
+                    Submit
                   </button>
                 </div>
               </form>

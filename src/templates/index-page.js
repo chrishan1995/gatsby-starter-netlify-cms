@@ -1,144 +1,78 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 
 import Layout from '../components/Layout'
-import Features from '../components/Features'
-import BlogRoll from '../components/BlogRoll'
 
 export const IndexPageTemplate = ({
   image,
-  title,
+  imageMobile,
   heading,
-  subheading,
-  mainpitch,
-  description,
-  intro,
-}) => (
-  <div>
-    <div
-      className="full-width-image margin-top-0"
-      style={{
-        backgroundImage: `url(${
-          !!image.childImageSharp ? image.childImageSharp.fluid.src : image
-        })`,
-        backgroundPosition: `top left`,
-        backgroundAttachment: `fixed`,
-      }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          height: '150px',
-          lineHeight: '1',
-          justifyContent: 'space-around',
-          alignItems: 'left',
-          flexDirection: 'column',
-        }}
-      >
-        <h1
-          className="has-text-weight-bold is-size-3-mobile is-size-2-tablet is-size-1-widescreen"
-          style={{
-            boxShadow:
-              'rgb(255, 68, 0) 0.5rem 0px 0px, rgb(255, 68, 0) -0.5rem 0px 0px',
-            backgroundColor: 'rgb(255, 68, 0)',
-            color: 'white',
-            lineHeight: '1',
-            padding: '0.25em',
-          }}
-        >
-          {title}
+  link,
+  actionText,
+}) => {
+  const indexContainer = (
+    <div className="container columns index-container">
+      <div className="column is-narrow is-hidden-mobile"><div style={{width: '74px'}} /></div>
+      <div className="column is-half-widescreen is-three-quarters-mobile has-text-centered-mobile index-content">
+        <h1 className="is-size-3-mobile is-size-2-tablet is-size-1-desktop"
+          style={{ lineHeight: '1.31', fontWeight: 'normal', }} >
+          {heading}
         </h1>
-        <h3
-          className="has-text-weight-bold is-size-5-mobile is-size-5-tablet is-size-4-widescreen"
-          style={{
-            boxShadow:
-              'rgb(255, 68, 0) 0.5rem 0px 0px, rgb(255, 68, 0) -0.5rem 0px 0px',
-            backgroundColor: 'rgb(255, 68, 0)',
-            color: 'white',
-            lineHeight: '1',
-            padding: '0.25em',
-          }}
-        >
-          {subheading}
-        </h3>
+        <a className="button is-rounded shopping-btn is-white" href={link}>{actionText}</a>
       </div>
     </div>
-    <section className="section section--gradient">
-      <div className="container">
-        <div className="section">
-          <div className="columns">
-            <div className="column is-10 is-offset-1">
-              <div className="content">
-                <div className="content">
-                  <div className="tile">
-                    <h1 className="title">{mainpitch.title}</h1>
-                  </div>
-                  <div className="tile">
-                    <h3 className="subtitle">{mainpitch.description}</h3>
-                  </div>
-                </div>
-                <div className="columns">
-                  <div className="column is-12">
-                    <h3 className="has-text-weight-semibold is-size-2">
-                      {heading}
-                    </h3>
-                    <p>{description}</p>
-                  </div>
-                </div>
-                <Features gridItems={intro.blurbs} />
-                <div className="columns">
-                  <div className="column is-12 has-text-centered">
-                    <Link className="btn" to="/products">
-                      See all products
-                    </Link>
-                  </div>
-                </div>
-                <div className="column is-12">
-                  <h3 className="has-text-weight-semibold is-size-2">
-                    Latest stories
-                  </h3>
-                  <BlogRoll />
-                  <div className="column is-12 has-text-centered">
-                    <Link className="btn" to="/blog">
-                      Read more
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+  )
+
+  return (
+    <div>
+      <div
+        className="full-width-image margin-top-0 index-page is-hidden-mobile"
+        style={{
+          backgroundImage: `url(${
+            !!image.childImageSharp ? image.childImageSharp.fluid.src : image
+          })`,
+          backgroundPosition: `top left`,
+          backgroundAttachment: `fixed`,
+        }}
+      >
+        {indexContainer}
       </div>
-    </section>
-  </div>
-)
+      <div
+        className="full-width-image margin-top-0 index-page is-hidden-tablet"
+        style={{
+          backgroundImage: `url(${
+            !!imageMobile.childImageSharp ? imageMobile.childImageSharp.fluid.src : imageMobile
+          })`,
+          backgroundPosition: `top left`,
+          backgroundAttachment: `fixed`,
+        }}
+      >
+        {indexContainer}
+      </div>
+    </div>
+  );
+}
 
 IndexPageTemplate.propTypes = {
   image: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  title: PropTypes.string,
+  imageMobile: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   heading: PropTypes.string,
-  subheading: PropTypes.string,
-  mainpitch: PropTypes.object,
-  description: PropTypes.string,
-  intro: PropTypes.shape({
-    blurbs: PropTypes.array,
-  }),
+  link: PropTypes.string,
+  actionText: PropTypes.string,
 }
 
 const IndexPage = ({ data }) => {
   const { frontmatter } = data.markdownRemark
 
   return (
-    <Layout>
+    <Layout isHomePage={true}>
       <IndexPageTemplate
         image={frontmatter.image}
-        title={frontmatter.title}
+        imageMobile={frontmatter.imageMobile}
         heading={frontmatter.heading}
-        subheading={frontmatter.subheading}
-        mainpitch={frontmatter.mainpitch}
-        description={frontmatter.description}
-        intro={frontmatter.intro}
+        link={frontmatter.link}
+        actionText={frontmatter.actionText}
       />
     </Layout>
   )
@@ -166,27 +100,16 @@ export const pageQuery = graphql`
             }
           }
         }
-        heading
-        subheading
-        mainpitch {
-          title
-          description
-        }
-        description
-        intro {
-          blurbs {
-            image {
-              childImageSharp {
-                fluid(maxWidth: 240, quality: 64) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
+        imageMobile {
+          childImageSharp {
+            fluid(maxWidth: 1125, quality: 100){
+              ...GatsbyImageSharpFluid
             }
-            text
           }
-          heading
-          description
         }
+        heading
+        link
+        actionText
       }
     }
   }
