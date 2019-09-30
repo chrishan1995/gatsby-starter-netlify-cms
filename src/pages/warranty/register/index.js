@@ -4,9 +4,13 @@ import Layout from '../../../components/Layout'
 import bulmaCalendar from '../../../../node_modules/bulma-calendar/dist/js/bulma-calendar.min.js';
 
 function encode(data) {
-  return Object.keys(data)
-    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-    .join('&')
+  const formData = new FormData()
+
+  for (const key of Object.keys(data)) {
+    formData.append(key, data[key])
+  }
+
+  return formData
 }
 
 export default class Index extends React.Component {
@@ -27,7 +31,7 @@ export default class Index extends React.Component {
       // Add listener to date:selected event
       calendar.on('select', date => {
         this.setState({
-          purchase_date: date.data.startDate.toString(),
+          purchaseDate: date.data.startDate.toString(),
         });
       });
     });
@@ -57,14 +61,13 @@ export default class Index extends React.Component {
     e.preventDefault()
     const form = e.target
 
-    if (!this.state.purchase_date) {
+    if (!this.state.purchaseDate) {
       alert('Please select a valid date');
       return
     }
 
     fetch('/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encode({
         'form-name': form.getAttribute('name'),
         ...this.state,
