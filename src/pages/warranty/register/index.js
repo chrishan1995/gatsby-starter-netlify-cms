@@ -18,6 +18,7 @@ export default class Index extends React.Component {
       minDate: '2019-01-01',
       maxDate: new Date(),
       showHeader: false,
+      lang: 'en',
     });
 
     // Loop on each calendar initialized
